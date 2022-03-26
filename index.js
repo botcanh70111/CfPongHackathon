@@ -93,12 +93,12 @@ io.on('connection', socket => {
 		//Removes user from current game and notifices other player - could use the game-id from player object but cbs
 		for (key in games) {
 			let game = games[key];
-			if (game.player1 == socket.id) {
-				users[game.player2].socket.emit('player-left');
-				delete games[key];
-			} else if (game.player2 == socket.id) {
-				users[game.player1].socket.emit('player-left');
-				delete games[key];
+			let user = users[game.player1 == socket.id ? game.player2 : game.player1];
+			if (user && user.socket) {
+				user.socket.emit('player-left');
+			}
+			if (game) {
+				game.state = 3;
 			}
 		}
 	});
@@ -145,7 +145,7 @@ function matchMaker(new_player) {
 setInterval(() => {
 	for (key in games) {
 		let game = games[key];
-		if (game.state == 2) continue;
+		if (game.state == 2 || game.state == 3) continue;
 		console.log(JSON.stringify(game));
 
 		if (game.delayInterval > 0) {

@@ -5,7 +5,7 @@ const MAX_SCORE = 2;
 
 class Game {
 
-	//0 - none, 1 started, 2 ended
+	//0 - none, 1 started, 2 ended, 3 cancel
 	state = 0;
 	winner = '';
 

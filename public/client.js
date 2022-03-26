@@ -75,7 +75,7 @@ socket.on('game-data', (data, callback) => {
 
 			alert(`Player ${data.winner} win!`);
 			location.reload();
-		}, 3000);
+		}, 1000);
 	}
 });
 
