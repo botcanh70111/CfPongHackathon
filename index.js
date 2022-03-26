@@ -39,10 +39,10 @@ io.on('connection', socket => {
 	socket.on('set-username', (username, callback) => {
 		let same_username = false;
 		// console.log(uNRegex.test(username));
-		if (!uNRegex.test(username)) {
-			callback(false);
-			same_username = true;
-		}
+		// if (!uNRegex.test(username)) {
+		// 	callback(false);
+		// 	same_username = true;
+		// }
 		for (var key in users) {
 			var user = users[key];
 			if (user.username == username) {

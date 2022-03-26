@@ -14,8 +14,12 @@ let interval = setInterval(() => {
 }, 500);
 
 window.onload = function (e) {
-	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-		document.getElementById('twoplayers').style.display = 'none';	
+	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+		document.getElementById('twoplayers').style.display = 'none';
+	}
+	let savedUserName = localStorage.getItem('user_name');
+	if (savedUserName) {
+		document.getElementById('input-username').value = savedUserName;
 	}
 };
 
@@ -93,13 +97,10 @@ function setUsername() {
 			if (callback) {
 				document.getElementById('start-screen').remove();
 				console.log('username changed successfully');
-			} else {
-				window.alert(
-					'Username invalid, must be more than 3 characters in length, no spaces and unique. (^[a-zA-Z0-9_.-]{3,}$)'
-				);
 			}
 		}
 	);
+	localStorage.setItem('user_name', document.getElementById('input-username').value);
 }
 
 //Single Player vs CPU
