@@ -30,7 +30,7 @@ let ping_interval = setInterval(() => {
 
 //Gets number of online players
 socket.on('player-broadcast', players => {
-	document.getElementById('online-players').innerHTML = `Online: ${players}`;
+	document.getElementById('online-players').innerHTML = `Users Online: ${players}`;
 });
 
 //Game has begun

@@ -27,10 +27,16 @@ class Pong {
 		this.ctx.textAlign = 'center';
 		if (this.game.player == 1) {
 			this.ctx.fillStyle = '#0000ff';
+			this.ctx.font='bold 28px Arial';
 			this.ctx.fillText(
-				`${this.game.self.username}: ${this.game.self.score}\nTotal win: ${this.game.self.winGames}`,
+				`${this.game.self.username}`,
 				this.canvas.width / 4,
 				50
+			);
+			this.ctx.fillText(
+				`Score: ${this.game.self.score}`,
+				this.canvas.width / 4,
+				90
 			);
 			this.ctx.fillRect(
 				0.05 * this.canvas.width,
@@ -38,11 +44,25 @@ class Pong {
 				0.01 * this.canvas.width,
 				0.2 * this.canvas.height
 			);
-			this.ctx.fillStyle = '#ff0000';
+			this.ctx.fillStyle = '#ffff00';
+			this.ctx.font='bold 30px Arial';
 			this.ctx.fillText(
-				`${this.game.opp.username}: ${this.game.opp.score}\nTotal win: ${this.game.opp.winGames}`,
+				`${this.game.self.winGames} - ${this.game.opp.winGames}`,
+				this.canvas.width / 2,
+				50
+			);
+			this.ctx.fillStyle = '#ff0000';
+			this.ctx.font='bold 28px Arial';
+			this.ctx.fillText(
+				`${this.game.opp.username}`,
 				3 * (this.canvas.width / 4),
 				50
+			);
+
+			this.ctx.fillText(
+				`Score: ${this.game.opp.score}`,
+				3 *(this.canvas.width / 4),
+				90
 			);
 			this.ctx.fillRect(
 				0.95 * this.canvas.width,
@@ -52,10 +72,16 @@ class Pong {
 			);
 		} else {
 			this.ctx.fillStyle = '#ff0000';
+			this.ctx.font='bold 28px Arial';
 			this.ctx.fillText(
-				`${this.game.opp.username}: ${this.game.opp.score}\nTotal win: ${this.game.opp.winGames}`,
+				`${this.game.opp.username}`,
 				this.canvas.width / 4,
 				50
+			);
+			this.ctx.fillText(
+				`Score: ${this.game.opp.score}`,
+				this.canvas.width / 4,
+				80
 			);
 			this.ctx.fillRect(
 				0.05 * this.canvas.width,
@@ -63,12 +89,25 @@ class Pong {
 				0.01 * this.canvas.width,
 				0.2 * this.canvas.height
 			);
+			this.ctx.fillStyle = '#ffff00';
+			this.ctx.font='bold 30px Arial';
+			this.ctx.fillText(
+				`${this.game.opp.winGames} - ${this.game.self.winGames}`,
+				this.canvas.width / 2,
+				50
+			);
 
 			this.ctx.fillStyle = '#0000ff';
+			this.ctx.font='bold 28px Arial';
 			this.ctx.fillText(
-				`${this.game.self.username}: ${this.game.self.score}\nTotal win: ${this.game.self.winGames}`,
+				`${this.game.self.username}`,
 				3 * (this.canvas.width / 4),
 				50
+			);
+			this.ctx.fillText(
+				`Score: ${this.game.self.score}`,
+				3 * (this.canvas.width / 4),
+				80
 			);
 			this.ctx.fillRect(
 				0.95 * this.canvas.width,
