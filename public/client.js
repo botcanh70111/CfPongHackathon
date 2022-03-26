@@ -34,11 +34,16 @@ let ping_interval = setInterval(() => {
 
 //Gets number of online players
 socket.on('player-broadcast', players => {
-	document.getElementById('online-players').innerHTML = `Users Online: ${players}`;
+	document.getElementById('online-players').innerHTML = `Users online: ${players}`;
 });
 
 //Game has begun
 socket.on('game-started', data => {
+
+	//Play sound when start game
+	var audio = new Audio('./assets/start-game.mp3');
+	audio.play();
+
 	clearInterval(interval);
 	game_state = new Pong(
 		data.username,
