@@ -10,16 +10,18 @@ class Game {
 	winner = '';
 
 	constructor(id, username, id2, username2) {
+		console.log("Constructor: ", id, username, id2, username2);
 		this.ball_vel = 0.5;
 		this.id = uuid.v4();
 		this.player1 = id;
 		this.player2 = id2;
 		this.players = {};
-		this.players[id] = { name: username.toString(), pos: 50, score: 0 };
-		this.players[id2] = { name: username.toString(), pos: 50, score: 0 };
+		this.players[id] = { name: username.toString(), pos: 50, score: 0, winGames: 0 };
+		this.players[id2] = { name: username2.toString(), pos: 50, score: 0,  winGames: 0 };
 		this.ball = [20, 50];
 		this.ball_velocity = [MIN_SPEED, 0];
 		this.state = 1;
+		this.delayInterval = 0; // > 0 => delay between 2 games
 	}
 
 	//Updates game_state and calculates ball position and velocity
@@ -78,11 +80,25 @@ class Game {
 			this.ball_velocity[1] = -normalizedRelativeIntersectionY;
 		}
 
+
 		if(this.players[this.player1].score >= MAX_SCORE) {
+			this.players[this.player1].winGames++;
+			this.resetTurn(2);
+			this.delayInterval = 20;
+		}
+
+		if(this.players[this.player2].score >= MAX_SCORE) {
+			this.players[this.player2].winGames++;
+			this.resetTurn(1);
+			this.delayInterval = 20;
+		}
+
+		if (this.players[this.player1].winGames >= 2) {
 			this.winner = this.players[this.player1].name;
 			this.state = 2;
 		}
-		if(this.players[this.player2].score >= MAX_SCORE) {
+
+		if (this.players[this.player2].winGames >= 2) {
 			this.winner = this.players[this.player2].name;
 			this.state = 2;
 		}
@@ -93,6 +109,19 @@ class Game {
 			this.ball = [60, 50];
 			this.ball_velocity = [-(MIN_SPEED - 1), 0];
 		} else {
+			this.ball = [40, 50];
+			this.ball_velocity = [MIN_SPEED - 1, 0];
+		}
+	}
+
+	resetTurn(lastWinner) {
+		this.players[this.player1].score = 0;
+		this.players[this.player2].score = 0;
+		if (lastWinner == 1) {
+			this.ball = [60, 50];
+			this.ball_velocity = [-(MIN_SPEED - 1), 0];
+		}
+		else {
 			this.ball = [40, 50];
 			this.ball_velocity = [MIN_SPEED - 1, 0];
 		}

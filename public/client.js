@@ -56,11 +56,14 @@ socket.on('game-data', (data, callback) => {
 	game_state.game.opp.score = data.opp_score;
 	game_state.game.ball = data.ball;
 	game_state.game.opp.pos = data.opp_pos;
+	game_state.game.self.winGames = data.self_win;
+	game_state.game.opp.winGames = data.opp_win;
 	callback(game_state.game.self.pos);
 
 	if (data.game_state == 2) {
 		setTimeout(() => {
 			document.getElementById('gameplay').style.display = 'none';
+
 			alert(`Player ${data.winner} win!`);
 			location.reload();
 		}, 3000);
