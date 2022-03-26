@@ -102,6 +102,39 @@ function setUsername() {
 	);
 }
 
+
+// create room
+function createRoom() {
+	socket.emit(
+		'create-room',
+		document.getElementById('input-username').value,
+		callback => {
+			console.log(callback);
+			if (callback) {
+				console.log("Create room successfully.");
+			}
+		}
+	);
+}
+
+
+// create room
+function joinRoom() {
+	socket.emit(
+		'join-room',
+		{
+			roomId: document.getElementById('input-room').value,
+			userName: document.getElementById('input-username').value
+		},
+		callback => {
+			console.log(callback);
+			if (callback) {
+				console.log("Joined room.");
+			}
+		}
+	);
+}
+
 //Single Player vs CPU
 function singlePlayer() {
 	//Controls
@@ -242,6 +275,14 @@ function touchHandler(e) {
 document.getElementById('input-search-user').addEventListener('change', (data) => {
 	socket.emit('search-users', data.target.value);
 });
+
+
 socket.on('search-users-result', result => {
 	console.log(result);
+})
+
+socket.on('create-room-result', roomId => {
+	console.log(roomId);
+	document.getElementById("roomId").value = roomId;
+	document.getElementById("roomId").style.display = "block";
 })
