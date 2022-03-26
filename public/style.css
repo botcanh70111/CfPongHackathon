@@ -1,7 +1,7 @@
 body {
 	overflow: hidden;
 	margin: 0;
-	background: black;
+	background: rgb(18, 128, 172);
 	color: white;
 	font-family: 'Courier New', Courier, monospace;
 	touch-action: none;
@@ -52,31 +52,20 @@ h2 {
 	height: 250px;
 }
 
-#input-username[type='text'] {
-	background-color: black;
-	border: 5px solid white;
-	color: white;
-	text-align: center;
-	font-size: 32px;
-	width: 460px;
-	padding: 10px 15px;
-	border-radius: 4px;
-}
-
 .menu-button {
-	margin-top: 5px;
+	margin-top: 10px;
 	padding: 10px 20px;
 	width:500px;
 	border-radius: 20px;
-	background-color: black;
-	color: white;
+	background-color: rgb(255, 255, 255);
+	color: rgb(75, 74, 74);
 	border: 3px solid white;
 	transition-duration: 0.3s;
 }
 
 .menu-button:hover {
 	cursor: pointer;
-	background-color: white;
+	background-color: rgb(119, 110, 110);
 	color: black;
 }
 
@@ -109,4 +98,35 @@ h2 {
 	touch-action: none;
 	border: 5px white solid;
 	cursor: none;
+}
+
+.search-online {
+	display: flex;
+	width: 500px;
+	margin-top: 10px;
+}
+.search-online button {
+	border: 1px solid rgb(52, 92, 202);
+	padding: 5px;
+	font-size: 16px;
+	font-weight: 600;
+	border-radius: 10px;
+	cursor: pointer;
+	background-color: rgb(223, 94, 94);
+	color: white;
+}
+.search-online button:hover {
+	color: white;
+	background-color:rgb(86, 97, 94); 
+}
+.search-online .input-username {
+	background-color: rgb(255, 255, 255);
+	border: 1px solid rgb(0, 0, 0);
+	color: rgb(0, 0, 0);
+	text-align: center;
+	font-size: 32px;
+	width: 400px;
+	padding: 10px 15px;
+	border-radius: 4px;
+	margin-right: 10px;
 }

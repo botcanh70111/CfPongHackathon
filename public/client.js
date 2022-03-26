@@ -8,10 +8,16 @@ let game_state;
 let i = '';
 let interval = setInterval(() => {
 	document.getElementById('searching-for-match').innerHTML =
-		'Searching for Match' + i;
+		'Game is started. \n Wating for other user' + i;
 	i += '.';
 	if (i == '.....') i = '';
 }, 500);
+
+window.onload = function (e) {
+	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+		document.getElementById('twoplayers').style.display = 'none';	
+	}
+};
 
 //Control Ping
 let ping_interval = setInterval(() => {
@@ -50,12 +56,16 @@ socket.on('game-data', (data, callback) => {
 	game_state.game.opp.score = data.opp_score;
 	game_state.game.ball = data.ball;
 	game_state.game.opp.pos = data.opp_pos;
+	game_state.game.self.winGames = data.self_win;
+	game_state.game.opp.winGames = data.opp_win;
 	callback(game_state.game.self.pos);
 
 	if (data.game_state == 2) {
 		setTimeout(() => {
 			document.getElementById('gameplay').style.display = 'none';
-			alert(`Player ${data.winner} win!`)
+
+			alert(`Player ${data.winner} win!`);
+			location.reload();
 		}, 3000);
 	}
 });
@@ -206,6 +216,12 @@ function getMousePos(evt) {
 		x: evt.clientX - rect.left,
 		y: evt.clientY - rect.top
 	};
+}
+
+function searchUserOnline() {
+	let searchUser = document.getElementById('input-search-user').value;
+	console.log('searchUserOnline: ', searchUser);
+	socket.emit('search-users', searchUser);
 }
 
 //Mobile

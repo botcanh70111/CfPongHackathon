@@ -6,8 +6,8 @@ class Pong {
 		this.ctx = document.getElementById('drawing-canvas').getContext('2d');
 		this.game = {
 			player: player,
-			self: { username: username, score: 0, pos: 50 },
-			opp: { username: opp_username, score: 0, pos: 50 },
+			self: { username: username, score: 0, pos: 50, winGames: 0 },
+			opp: { username: opp_username, score: 0, pos: 50, winGames: 0},
 			ball: ball
 		};
 		this.player_velocity = 3;
@@ -28,7 +28,7 @@ class Pong {
 		if (this.game.player == 1) {
 			this.ctx.fillStyle = '#0000ff';
 			this.ctx.fillText(
-				`${this.game.self.username}: ${this.game.self.score}`,
+				`${this.game.self.username}: ${this.game.self.score}\nTotal win: ${this.game.self.winGames}`,
 				this.canvas.width / 4,
 				50
 			);
@@ -40,7 +40,7 @@ class Pong {
 			);
 			this.ctx.fillStyle = '#ff0000';
 			this.ctx.fillText(
-				`${this.game.opp.username}: ${this.game.opp.score}`,
+				`${this.game.opp.username}: ${this.game.opp.score}\nTotal win: ${this.game.opp.winGames}`,
 				3 * (this.canvas.width / 4),
 				50
 			);
@@ -53,7 +53,7 @@ class Pong {
 		} else {
 			this.ctx.fillStyle = '#ff0000';
 			this.ctx.fillText(
-				`${this.game.opp.username}: ${this.game.opp.score}`,
+				`${this.game.opp.username}: ${this.game.opp.score}\nTotal win: ${this.game.opp.winGames}`,
 				this.canvas.width / 4,
 				50
 			);
@@ -66,7 +66,7 @@ class Pong {
 
 			this.ctx.fillStyle = '#0000ff';
 			this.ctx.fillText(
-				`${this.game.self.username}: ${this.game.self.score}`,
+				`${this.game.self.username}: ${this.game.self.score}\nTotal win: ${this.game.self.winGames}`,
 				3 * (this.canvas.width / 4),
 				50
 			);
