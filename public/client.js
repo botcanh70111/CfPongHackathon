@@ -285,13 +285,32 @@ document.getElementById('input-search-user').addEventListener('change', (data) =
 
 
 socket.on('search-users-result', result => {
-	console.log(result);
+	let items = "";
+	
+	if (result && result.length > 0) {
+		result.forEach((e) => {
+			if (e.playing != true) {
+				items += `<li value="${e.id}">${e.username}</li>`;
+			}
+		})
+	}
+
+	if (items != "") {
+		let template = `<ul>${items}</ul>`;
+		document.getElementById("userslisting").innerHTML = template;
+		document.getElementById("userslisting").classList.remove("hidden");
+	}
+	else {
+		document.getElementById("userslisting").innerHTML = "";
+		document.getElementById("userslisting").classList.add("hidden");
+	}
 })
 
 socket.on('create-room-result', roomId => {
 	console.log(roomId);
 	document.getElementById("roomId").value = roomId;
 	document.getElementById("roomId").style.display = "block";
+
 });
 
 socket.on('game-history-changed', data => {

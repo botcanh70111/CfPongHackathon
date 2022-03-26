@@ -130,3 +130,40 @@ h2 {
 	border-radius: 4px;
 	margin-right: 10px;
 }
+
+.search-container {
+	position: relative;
+}
+.users-listing {
+	position: absolute;
+	left: 0;
+	top: 60px;
+	z-index: 1;
+	max-height: 200px;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: rgba(255,255,255, 0.8);
+	color: black;
+}
+
+.users-listing ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+.users-listing ul li {
+	margin: 0;
+	padding: 15px;
+	cursor: pointer;
+	border-bottom: 1px solid #ddd;
+}
+
+.users-listing ul li:hover {
+	background-color: rgba(255,255,255, 1);
+}
+
+.users-listing.hidden {
+	display: none;
+}

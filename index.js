@@ -74,7 +74,7 @@ io.on('connection', socket => {
 	socket.on('search-users', (data) => {
 		const result = [];
 		for (var key in users) {
-			var user = { id: key, username: users[key].username };
+			var user = { id: key, username: users[key].username, playing: users[key].game.playing };
 			console.log('search-xxxx', user);
 			if (user.username.trim().toLowerCase().includes(data.trim().toLowerCase())) {
 				result.push(user);
@@ -293,8 +293,8 @@ function getUserGameHistory(username) {
 			history.push({
 				player1: game.players[game.player1].name,
 				player2: game.players[game.player2].name,
-				player1_score: game.players[game.player1].score,
-				player2_score: game.players[game.player2].score,
+				player1_score: game.players[game.player1].winGames,
+				player2_score: game.players[game.player2].winGames,
 				created_date: game.created_date,
 				ended_date: game.ended_date,
 				state: game.state
