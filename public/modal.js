@@ -9,11 +9,21 @@ const ENUM_MODAL_TYPE = {
 function openModal(modalType = ENUM_MODAL_TYPE.win) {
   console.log("TVT modalType = " + modalType)
   // Get the modal
+  var modalOverlay = document.getElementById('modal-overlay');
   var modal = document.getElementById('myModal');
-  var modalHeader = document.getElementById('modal-header');
+  var modalHeaderTitle = document.getElementById('header-title');
   var modalContent = document.getElementById('modal-content');
-  modalHeader.innerHTML = 'Thông báo'
+  modalHeaderTitle.innerHTML = 'Thông báo';
   modalContent.innerHTML = 'Haaaa';
 
+  modalOverlay.style.display = 'block';
   modal.style.display = "flex";
+}
+
+function closeModal() {
+  console.log("TVT go to closeModal");
+  var modalOverlay = document.getElementById('modal-overlay');
+  var modal = document.getElementById('myModal');
+  modalOverlay.style.display = 'none';
+  modal.style.display = "none";
 }

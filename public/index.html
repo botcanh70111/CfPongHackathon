@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=0" />
 	<link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css" />
 	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="stylesheet" type="text/css" href="app.css" />
 </head>
 
 <body>
@@ -32,10 +33,49 @@
 	<div id="gameplay" style="display: none;" onresize="fit_canvas();">
 		<canvas id="drawing-canvas" width="600" height="500"></canvas>
 	</div>
+
+	
+	<!-- Modal Overlay -->
+	<div id="modal-overlay" class="modal-overlay"></div>
+
+	<!-- Trigger/Open The Modal -->
+	<button id="myBtn" onclick="openModal(1);">Open Modal</button>
+
+	<!-- The Alert Modal -->
+	<div id="myModal" class="modal">
+		<div id="modal-header" class="modal-header">
+			<span class="header-close" onclick="closeModal();">&times;</span>
+			<label id="header-title" class="header-title"></label>
+		</div>
+		<div id="modal-content" class="modal-content">
+			<p>Some text in the Modal..</p>
+		</div>
+		<div class="modal-bottom">
+			<div class="ok-btn" onclick="closeModal();">OK</div>
+		</div>
+	</div>
+
+	<script>
+		document.onkeydown = function(evt) {
+				console.log("TVT go to document.onkeydown")
+				evt = evt || window.event;
+				var isEscape = false;
+				if ("key" in evt) {
+						isEscape = (evt.key === "Escape" || evt.key === "Esc");
+				} else {
+						isEscape = (evt.keyCode === 27);
+				}
+				if (isEscape) {
+					closeModal();
+				}
+		};
+	</script>
+
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="StaticGame.js"></script>
 <script src="Pong.js"></script>
 <script src="client.js"></script>
+<script src="modal.js"></script>
 </html>
