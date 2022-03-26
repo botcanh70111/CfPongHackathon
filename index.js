@@ -1,4 +1,5 @@
 var express = require('express');
+const uuid = require('uuid');
 var Game = require('./Game');
 var app = express();
 const HERTZ = 30; //Game updates per second
@@ -27,6 +28,7 @@ class User {
 //Stores all connected users
 let users = {};
 let matchmaking = [];
+let privateRooms = {};
 let games = {};
 
 //Manages sockets
@@ -80,6 +82,18 @@ io.on('connection', socket => {
 		}
 		socket.emit('search-users-result', result);
 		console.log('search-users', data, users, result);
+	});
+
+	socket.on('create-room', (userName, callback) => {
+		users[socket.id].username = userName;
+		let roomId = createRoom(socket);
+		callback(true);
+		console.log(roomId);
+		socket.emit('create-room-result', roomId);
+	});
+
+	socket.on('join-room', (player2) => {
+		joinRoom(player2, socket);
 	});
 
 	//Disconnects user
@@ -141,6 +155,48 @@ function matchMaker(new_player) {
 	}
 }
 
+function createRoom(socket) {
+	let roomId = uuid.v4();
+	privateRooms[roomId] = socket.id;
+
+	return roomId;
+}
+
+function joinRoom(player2, socketPlayer2) {
+	users[socketPlayer2.id].username = player2.userName;
+	let user1Key = privateRooms[player2.roomId];
+	let user2 = users[socketPlayer2.id];
+	let user1 = users[user1Key];
+	
+	console.log(user1Key);
+
+	var game = new Game(
+		user1Key,
+		user1.username,
+		socketPlayer2.id,
+		user2.username
+	);
+
+	games[game.id] = game;
+
+	users[user1Key].game.id = game.id;
+	users[socketPlayer2.id].game.id = game.id;
+	users[user1Key].game.playing = true;
+	users[socketPlayer2.id].game.playing = true;
+
+	//Tells players that a game has started - allows client to initialise view
+	users[user1Key].socket.emit('game-started', {
+		username: users[user1Key].username,
+		player: 1,
+		opp_username: users[socketPlayer2.id].username,
+		ball: game.ball
+	});
+	users[socketPlayer2.id].socket.emit('game-started', {
+		username: users[socketPlayer2.id].username,
+		player: 2,
+		opp_username: users[user1Key].username
+	});
+}
 //Sends new game data to each of the respective players in each game, every x milliseconds
 setInterval(() => {
 	for (key in games) {

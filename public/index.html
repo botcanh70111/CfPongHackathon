@@ -18,8 +18,14 @@
 		</div>
 		<div class="search-online">
 			<input id="input-username" class="input-username" type="text" name="start-game" value="" placeholder="Enter your name ..."/>
+			<button onclick="createRoom();">Create Room</button>
 			<button onclick="setUsername();">Start Online</button>
 		</div>
+		<div class="search-online">
+			<input id="input-room" class="input-username" type="text" name="start-game" value="" placeholder="Enter room id ..."/>
+			<button onclick="joinRoom();">Join Room</button>
+		</div>
+		<input class="menu-button" id="roomId" style="display: none;" type="button" />
 		<input class="menu-button" id="singleplayer" onclick="singlePlayer();" type="submit" value="Play with computer" />
 		<input class="menu-button" id="twoplayers" onclick="oneVerseOne();" type="submit" value="Two Players offline" />
 
