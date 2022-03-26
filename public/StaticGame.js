@@ -26,8 +26,6 @@ class Game {
 			this.reset(2);
 		}
 
-		console.log(this.players[this.player1].score)
-
 		if (this.ball[1] >= 100) {
 			this.ball_velocity[1] *= -1;
 			this.ball[1] = 99;

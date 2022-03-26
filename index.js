@@ -148,15 +148,22 @@ setInterval(() => {
 		if (game.state == 2) continue;
 		console.log(JSON.stringify(game));
 
+		if (game.delayInterval > 0) {
+			game.delayInterval--;
+			continue;
+		}
+
 		game.update();
 		data = {
 			1: {
 				score: game.players[game.player1].score,
-				pos: game.players[game.player1].pos
+				pos: game.players[game.player1].pos,
+				winGames: game.players[game.player1].winGames
 			},
 			2: {
 				score: game.players[game.player2].score,
-				pos: game.players[game.player2].pos
+				pos: game.players[game.player2].pos,
+				winGames: game.players[game.player2].winGames
 			},
 			ball: game.ball
 		};
@@ -165,11 +172,14 @@ setInterval(() => {
 			'game-data',
 			{
 				score: data[2].score,
+				self_win: data[2].winGames,
+				opp_win: data[1].winGames,
 				opp_score: data[1].score,
 				opp_pos: data[1].pos,
 				ball: data.ball,
 				game_state: game.state,
-				winner: game.winner
+				winner: game.winner,
+				delayInterval: game.delayInterval
 			},
 			callback => {
 				game.players[game.player2].pos = callback;
@@ -179,24 +189,18 @@ setInterval(() => {
 			'game-data',
 			{
 				score: data[1].score,
+				self_win: data[1].winGames,
+				opp_win: data[2].winGames,
 				opp_score: data[2].score,
 				opp_pos: data[2].pos,
 				ball: data.ball,
 				game_state: game.state,
-				winner: game.winner
+				winner: game.winner,
+				delayInterval: game.delayInterval,
 			},
 			callback => {
 				game.players[game.player1].pos = callback;
 			}
 		);
-
-		// if (game.state == 2) {
-		// 	users[game.player2].socket.emit('palyer-win', {
-		// 		winner: game.winner
-		// 	});
-		// 	users[game.player1].socket.emit('palyer-win', {
-		// 		winner: game.winner
-		// 	});
-		// }
 	}
 }, (1 / HERTZ) * 1000);
