@@ -8,6 +8,8 @@ class Game {
 	//0 - none, 1 started, 2 ended, 3 cancel
 	state = 0;
 	winner = '';
+	created_date;
+	ended_date;
 
 	constructor(id, username, id2, username2) {
 		console.log("Constructor: ", id, username, id2, username2);
@@ -17,16 +19,17 @@ class Game {
 		this.player2 = id2;
 		this.players = {};
 		this.players[id] = { name: username.toString(), pos: 50, score: 0, winGames: 0 };
-		this.players[id2] = { name: username2.toString(), pos: 50, score: 0,  winGames: 0 };
+		this.players[id2] = { name: username2.toString(), pos: 50, score: 0, winGames: 0 };
 		this.ball = [20, 50];
 		this.ball_velocity = [MIN_SPEED, 0];
 		this.state = 1;
 		this.delayInterval = 0; // > 0 => delay between 2 games
+		this.created_date = Date.now();
 	}
 
 	//Updates game_state and calculates ball position and velocity
 	update() {
-		if(this.state == 2) return;
+		if (this.state == 2) return;
 		this.ball[0] += this.ball_velocity[0];
 		this.ball[1] += this.ball_velocity[1];
 		if (this.ball[0] >= 100) {
@@ -58,7 +61,7 @@ class Game {
 			var normalizedRelativeIntersectionY = relativeIntersectY / 10;
 			this.ball_velocity[0] = -(
 				(1 - Math.abs(normalizedRelativeIntersectionY)) *
-					(MAX_SPEED - MIN_SPEED) +
+				(MAX_SPEED - MIN_SPEED) +
 				MIN_SPEED
 			);
 			this.ball_velocity[1] = -normalizedRelativeIntersectionY;
@@ -75,19 +78,19 @@ class Game {
 			var normalizedRelativeIntersectionY = relativeIntersectY / 10;
 			this.ball_velocity[0] =
 				(1 - Math.abs(normalizedRelativeIntersectionY)) *
-					(MAX_SPEED - MIN_SPEED) +
+				(MAX_SPEED - MIN_SPEED) +
 				MIN_SPEED;
 			this.ball_velocity[1] = -normalizedRelativeIntersectionY;
 		}
 
 
-		if(this.players[this.player1].score >= MAX_SCORE) {
+		if (this.players[this.player1].score >= MAX_SCORE) {
 			this.players[this.player1].winGames++;
 			this.resetTurn(2);
 			this.delayInterval = 20;
 		}
 
-		if(this.players[this.player2].score >= MAX_SCORE) {
+		if (this.players[this.player2].score >= MAX_SCORE) {
 			this.players[this.player2].winGames++;
 			this.resetTurn(1);
 			this.delayInterval = 20;
@@ -101,6 +104,7 @@ class Game {
 		if (this.players[this.player2].winGames >= 2) {
 			this.winner = this.players[this.player2].name;
 			this.state = 2;
+			this.ended_date = Date.now();
 		}
 	}
 

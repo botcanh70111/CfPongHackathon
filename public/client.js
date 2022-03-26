@@ -20,6 +20,7 @@ window.onload = function (e) {
 	let savedUserName = localStorage.getItem('user_name');
 	if (savedUserName) {
 		document.getElementById('input-username').value = savedUserName;
+		socket.emit('get-game-history', savedUserName);
 	}
 };
 
@@ -291,4 +292,14 @@ socket.on('create-room-result', roomId => {
 	console.log(roomId);
 	document.getElementById("roomId").value = roomId;
 	document.getElementById("roomId").style.display = "block";
-})
+});
+
+socket.on('game-history-changed', data => {
+	console.log('game histories', data);
+	if (data && data.length > 0) {
+		const historyEl = document.getElementById('game-history');
+		data.sort(function (a, b) { return b.created_date - a.created_date }).forEach(history => {
+			historyEl.innerHTML += `<p>${new Date(history.created_date).toString()} | ${history.player1} vs ${history.player2} (${history.player1_score}-${history.player2_score})</p>`
+		});
+	}
+});

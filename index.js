@@ -90,10 +90,16 @@ io.on('connection', socket => {
 		callback(true);
 		console.log(roomId);
 		socket.emit('create-room-result', roomId);
+		console.log('t2')
+		socket.emit('game-history-changed', getUserGameHistory(userName));
 	});
 
 	socket.on('join-room', (player2) => {
 		joinRoom(player2, socket);
+	});
+
+	socket.on('get-game-history', (savedUserName) => {
+		socket.emit('game-history-changed', getUserGameHistory(savedUserName));
 	});
 
 	//Disconnects user
@@ -110,9 +116,12 @@ io.on('connection', socket => {
 			let user = users[game.player1 == socket.id ? game.player2 : game.player1];
 			if (user && user.socket) {
 				user.socket.emit('player-left');
+				console.log('t3')
+				user.socket.emit('game-history-changed', getUserGameHistory(user.username));
 			}
 			if (game) {
 				game.state = 3;
+				game.ended_date = Date.now();
 			}
 		}
 	});
@@ -135,6 +144,9 @@ function matchMaker(new_player) {
 		users[new_player].game.id = game.id;
 		users[matchmaking[0]].game.playing = true;
 		users[new_player].game.playing = true;
+
+		users[new_player].socket.emit('game-history-changed', getUserGameHistory(users[new_player].username));
+		users[matchmaking[0]].socket.emit('game-history-changed', getUserGameHistory(users[matchmaking[0]].username));
 
 		//Tells players that a game has started - allows client to initialise view
 		users[matchmaking[0]].socket.emit('game-started', {
@@ -167,7 +179,7 @@ function joinRoom(player2, socketPlayer2) {
 	let user1Key = privateRooms[player2.roomId];
 	let user2 = users[socketPlayer2.id];
 	let user1 = users[user1Key];
-	
+
 	console.log(user1Key);
 
 	var game = new Game(
@@ -196,12 +208,23 @@ function joinRoom(player2, socketPlayer2) {
 		player: 2,
 		opp_username: users[user1Key].username
 	});
+
+	users[game.player2].socket.emit('game-history-changed', getUserGameHistory(users[user1Key].username))
+	users[game.player2].socket.emit('game-history-changed', getUserGameHistory(users[socketPlayer2.id].username))
 }
 //Sends new game data to each of the respective players in each game, every x milliseconds
 setInterval(() => {
 	for (key in games) {
 		let game = games[key];
-		if (game.state == 2 || game.state == 3) continue;
+		if (game.state == 2 || game.state == 3) {
+			if (users[game.player1] && users[game.player1].socket) {
+				users[game.player1].socket.emit('game-history-changed', getUserGameHistory(game.players[game.player1].username));
+			}
+			if (users[game.player2] && users[game.player2].socket) {
+				users[game.player2].socket.emit('game-history-changed', getUserGameHistory(game.players[game.player2].username));
+			}
+			continue;
+		}
 		console.log(JSON.stringify(game));
 
 		if (game.delayInterval > 0) {
@@ -260,3 +283,23 @@ setInterval(() => {
 		);
 	}
 }, (1 / HERTZ) * 1000);
+
+function getUserGameHistory(username) {
+	const history = [];
+	for (key in games) {
+		let game = games[key];
+		console.log(username, Object.getOwnPropertyNames(games).length, game.players[game.player1].name, game.players[game.player2].name);
+		if (game.players[game.player1].name == username || game.players[game.player2].name == username) {
+			history.push({
+				player1: game.players[game.player1].name,
+				player2: game.players[game.player2].name,
+				player1_score: game.players[game.player1].score,
+				player2_score: game.players[game.player2].score,
+				created_date: game.created_date,
+				ended_date: game.ended_date,
+				state: game.state
+			});
+		}
+	}
+	return history;
+}
