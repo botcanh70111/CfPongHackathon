@@ -1,0 +1,112 @@
+body {
+	overflow: hidden;
+	margin: 0;
+	background: black;
+	color: white;
+	font-family: 'Courier New', Courier, monospace;
+	touch-action: none;
+	width: 100%;
+}
+
+h1 {
+	margin: 0;
+	height: 10vh;
+	font-size: 50px;
+	text-align: center;
+}
+
+#online-players {
+	right: 10px;
+}
+#ping {
+	font-size: 15px;
+	top: 30px;
+	left: 10px;
+}
+
+#github-link {
+	font-size: 15px;
+	color: white;
+	left: 10px;
+}
+
+#github-link:visited {
+	color: white;
+}
+
+h2 {
+	position: absolute;
+	top: 10px;
+	font-size: 24px;
+}
+
+#start-screen {
+	position: absolute;
+	text-align: center;
+	font-size: 32px;
+	top: 50%;
+	left: 50%;
+	margin-top: -125px;
+	margin-left: -250px;
+	width: 500px;
+	height: 250px;
+}
+
+#input-username[type='text'] {
+	background-color: black;
+	border: 5px solid white;
+	color: white;
+	text-align: center;
+	font-size: 32px;
+	width: 460px;
+	padding: 10px 15px;
+	border-radius: 4px;
+}
+
+.menu-button {
+	margin-top: 5px;
+	padding: 10px 20px;
+	width:500px;
+	border-radius: 20px;
+	background-color: black;
+	color: white;
+	border: 3px solid white;
+	transition-duration: 0.3s;
+}
+
+.menu-button:hover {
+	cursor: pointer;
+	background-color: white;
+	color: black;
+}
+
+#match-making {
+	position: absolute;
+	text-align: center;
+	font-size: 32px;
+	top: 50%;
+	left: 50%;
+	margin-top: -125px;
+	margin-left: -275px;
+	width: 550px;
+	height: 250px;
+}
+
+#gameplay {
+	position: relative;
+	background: blue;
+	height: 90vh;
+	width: 100%;
+}
+
+@media (pointer: none), (pointer: coarse) {
+	#gameplay {
+		height: 75vh;
+	}
+}
+
+#drawing-canvas {
+	touch-action: none;
+	border: 5px white solid;
+	cursor: none;
+}
