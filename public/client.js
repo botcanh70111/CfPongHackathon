@@ -236,6 +236,13 @@ function oneVerseOne() {
 	fit_canvas();
 }
 
+function copyRoomIdToClipboard() {
+	const roomId = document.getElementById('room_id').textContent;
+	console.log('copyRoomIdToClipboard: ', roomId);
+	navigator.clipboard.writeText(roomId);
+	alert("Room Id is copied");
+}
+
 //Handles opponent leaving game
 socket.on('player-left', () => {
 	socket.disconnect();
@@ -308,9 +315,8 @@ socket.on('search-users-result', result => {
 
 socket.on('create-room-result', roomId => {
 	console.log(roomId);
-	document.getElementById("roomId").value = roomId;
-	document.getElementById("roomId").style.display = "block";
-
+	document.getElementById("room_id").textContent = roomId;
+	document.getElementById("room_info").style.display = "block";
 });
 
 socket.on('game-history-changed', data => {

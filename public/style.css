@@ -56,6 +56,18 @@ h2 {
 	height: 250px;
 }
 
+#start-screen span {
+	font-weight: bold;
+	font-size: 16px;
+	text-align: left;
+	width: 500px;
+}
+
+#start-screen span:last-child {
+	cursor: pointer;
+}
+
+
 .menu-button {
 	margin-top: 10px;
 	padding: 10px 20px;
