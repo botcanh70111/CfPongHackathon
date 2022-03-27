@@ -50,8 +50,8 @@ io.on('connection', socket => {
 	socket.on('play-online', (username, callback) => {
 		console.log(`username start new game online: ${username}`);
 		callback(true);
-			socket.emit('matchmaking-begin');
-			matchMaker(socket.id);
+		socket.emit('matchmaking-begin');
+		matchMaker(socket.id);
 	});
 
 	socket.on('change-username', (userInfo) => {
@@ -100,7 +100,10 @@ io.on('connection', socket => {
 	});
 
 	socket.on('join-room', (player2) => {
-		joinRoom(player2, socket);
+		let isJoined = joinRoom(player2, socket);
+		if (!isJoined) {
+			users[socket.id].socket.emit('user-playing');
+		}
 	});
 
 	socket.on('get-game-history', (savedUserName) => {
@@ -136,37 +139,14 @@ io.on('connection', socket => {
 //theoretically there should never be more than two people in the queue at any one time.
 function matchMaker(new_player) {
 	if (matchmaking.length != 0) {
-		var game = new Game(
-			matchmaking[0],
-			users[matchmaking[0]].username,
-			new_player,
-			users[new_player].username
-		);
-		games[game.id] = game;
-
-		//This is all completely un-needed but may be useful for future additions to the game
-		users[matchmaking[0]].game.id = game.id;
-		users[new_player].game.id = game.id;
-		users[matchmaking[0]].game.playing = true;
-		users[new_player].game.playing = true;
-
-		users[new_player].socket.emit('game-history-changed', getUserGameHistory(users[new_player].username));
-		users[matchmaking[0]].socket.emit('game-history-changed', getUserGameHistory(users[matchmaking[0]].username));
-
-		//Tells players that a game has started - allows client to initialise view
-		users[matchmaking[0]].socket.emit('game-started', {
-			username: users[matchmaking[0]].username,
-			player: 1,
-			opp_username: users[new_player].username,
-			ball: game.ball
-		});
-		users[new_player].socket.emit('game-started', {
-			username: users[new_player].username,
-			player: 2,
-			opp_username: users[matchmaking[0]].username
-		});
-		console.log(`Game ${game.id} has started.`);
-		matchmaking = [];
+		console.log("match: ", matchmaking[0], new_player);
+		let isJoined = startGame(matchmaking[0], new_player);
+		if (isJoined) {
+			matchmaking = [];
+		}
+		else {
+			users[new_player].socket.emit('user-playing');
+		}
 	} else {
 		matchmaking.push(new_player);
 	}
@@ -180,44 +160,50 @@ function createRoom(socket) {
 }
 
 function joinRoom(player2, socketPlayer2) {
-	users[socketPlayer2.id].username = player2.username;
 	let user1Key = privateRooms[player2.roomId];
-	let user2 = users[socketPlayer2.id];
-	let user1 = users[user1Key];
+
+	return startGame(user1Key, socketPlayer2.id);
+}
+
+function startGame(userKey1, userKey2) {
+	let user2 = users[userKey2];
+	let user1 = users[userKey1];
+	console.log(`userId1: ${user1.userId} ${user1.game.playing}, userId2: ${user2.userId} ${user2.game.playing}`);
+	if (user1.userId == user2.userId || user1.game.playing || user2.game.playing) {
+		return false;
+	}
 
 	var game = new Game(
-		user1Key,
+		userKey1,
 		user1.username,
-		socketPlayer2.id,
+		userKey2,
 		user2.username
 	);
 
 	games[game.id] = game;
 
-	users[user1Key].game.id = game.id;
-	users[socketPlayer2.id].game.id = game.id;
-	users[user1Key].game.playing = true;
-	users[socketPlayer2.id].game.playing = true;
+	users[userKey1].game.id = game.id;
+	users[userKey2].game.id = game.id;
+	users[userKey1].game.playing = true;
+	users[userKey2].game.playing = true;
 
 	//Tells players that a game has started - allows client to initialise view
-	users[user1Key].socket.emit('game-started', {
-		username: users[user1Key].username,
+	users[userKey1].socket.emit('game-started', {
+		username: users[userKey1].username,
 		player: 1,
-		opp_username: users[socketPlayer2.id].username,
+		opp_username: users[userKey2].username,
 		ball: game.ball
 	});
-	users[socketPlayer2.id].socket.emit('game-started', {
-		username: users[socketPlayer2.id].username,
+	users[userKey2].socket.emit('game-started', {
+		username: users[userKey2].username,
 		player: 2,
-		opp_username: users[user1Key].username
+		opp_username: users[userKey1].username
 	});
 
-	users[game.player2].socket.emit('game-history-changed', getUserGameHistory(users[user1Key].username))
-	users[game.player2].socket.emit('game-history-changed', getUserGameHistory(users[socketPlayer2.id].username))
-}
+	users[game.player1].socket.emit('game-history-changed', getUserGameHistory(users[userKey1].username))
+	users[game.player2].socket.emit('game-history-changed', getUserGameHistory(users[userKey2].username))
 
-function startGame(username1, username2) {
-
+	return true;
 }
 
 //Sends new game data to each of the respective players in each game, every x milliseconds

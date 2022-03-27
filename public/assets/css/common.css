@@ -375,3 +375,8 @@ body .main .form-container .form-group {
 .hideFunc {
     display: none;
 }
+@media screen and (max-width: 768px) {
+    body .figure {
+        display: none;
+    }
+  }
