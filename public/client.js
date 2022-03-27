@@ -1,6 +1,6 @@
 var host = window.location.href;
 console.log(host);
-var socket = io.connect('localhost');
+var socket = io.connect('http://18.139.89.76');
 
 let game_state;
 

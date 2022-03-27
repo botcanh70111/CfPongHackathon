@@ -3,7 +3,7 @@ const uuid = require('uuid');
 var Game = require('./Game');
 var app = express();
 const HERTZ = 30; //Game updates per second
-const port = process.env.PORT || 80;
+const port = 8888;
 var server = require('http')
 	.createServer(app)
 	.listen(port);
