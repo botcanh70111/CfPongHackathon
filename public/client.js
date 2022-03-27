@@ -33,9 +33,12 @@ window.onload = function (e) {
 
 	let savedUserName = localStorage.getItem('user_name');
 	if (savedUserName) {
+		console.log(userId, savedUserName);
 		document.getElementById('input-username').value = savedUserName;
 		socket.emit('get-game-history', savedUserName);
-		socket.emit('change-username', {userId: userId, username: savedUserName});
+		setTimeout(() => {
+			socket.emit('change-username', {userId: userId, username: savedUserName});
+		}, 1000);
 	}
 	let inputUserName = document.getElementById('input-username');
 	if(!inputUserName.value.trim().length) {
