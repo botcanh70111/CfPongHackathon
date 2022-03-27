@@ -374,10 +374,14 @@ socket.on('create-room-result', roomId => {
 socket.on('game-history-changed', data => {
 	console.log('game histories', data);
 	if (data && data.length > 0) {
-		const historyEl = document.getElementById('game-history');
-		data.sort(function (a, b) { return b.created_date - a.created_date }).forEach(history => {
-			historyEl.innerHTML += `<p>${new Date(history.created_date).toString()} | ${history.player1} vs ${history.player2} (${history.player1_score}-${history.player2_score})</p>`
-		});
+		// const historyEl = document.getElementById('game-history');
+		// let historyArr = [];
+		// data.sort(function (a, b) { return b.created_date - a.created_date }).forEach(history => {
+		// 	const value = `${new Date(history.created_date).toString()} | ${history.player1} vs ${history.player2} (${history.player1_score}-${history.player2_score})`;
+		// 	historyEl.innerHTML += `<p>${new Date(history.created_date).toString()} | ${history.player1} vs ${history.player2} (${history.player1_score}-${history.player2_score})</p>`;
+		// 	historyArr = [...historyArr, value];
+		// });
+		localStorage.setItem('history_data', JSON.stringify(historyArr));
 	}
 });
 
@@ -386,3 +390,7 @@ socket.on('change-username-result', userInfo => {
 	localStorage.setItem("user_name", userInfo.username);
 	document.getElementById('input-username').value = userInfo.username;
 });
+
+function showHistoryPopup() {
+	openModal(4);
+}

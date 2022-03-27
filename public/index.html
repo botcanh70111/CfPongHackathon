@@ -50,6 +50,18 @@
 								<a id="room_id_copy" onclick="copyRoomIdToClipboard()">(Copy to clipboard)</a>
 							</div>
 						</div>
+
+						<div class="form-group">
+							<label for="username">Tìm kiếm người chơi</label>
+							<div class="search-online">
+								<input id="input-search-user" class="input-username" type="text" name="username" value="" />
+								<button type="button" class="btn btn-primary" onclick="searchUserOnline();">Tìm kiếm</button>
+							</div>
+						</div>
+
+						<div id="userslisting" class="users-listing hide"></div>
+
+						
 						<div class="form-group">
 							<label for="username">Find user</label>
 							<div class="search-online">
@@ -84,8 +96,7 @@
 
 					<div class="bottom-action">
 						<div id="game-history">
-							<!-- Trigger/Open The Modal -->
-							<button id="myBtn" class=" btn btn-primary" onclick="history();" class="mt-10">History</button>
+							<button id="myBtn" class=" btn btn-primary" onclick="showHistoryPopup();" class="mt-10">History</button>
 						</div>
 						<h2 id="online-players">Online: 0</h2>
 					</div>
@@ -114,6 +125,21 @@
 		</div>
 		<div class="modal-bottom">
 			<div class="ok-btn btn btn-primary" onclick="closeModal();">OK</div>
+		</div>
+	</div>
+
+	<!-- The History Modal -->
+	<!-- Enum = 4 -->
+	<div id="history-modal" class="modal">
+		<div id="modal-header" class="modal-header">
+			<span class="header-close" onclick="closeModal(4);">&times;</span>
+			<label id="header-title" class="header-title">History</label>
+		</div>
+		<div id="history-modal-content" class="history-modal-content">
+
+		</div>
+		<div class="modal-bottom">
+			<div class="ok-btn btn btn-primary" onclick="closeModal(4);">OK</div>
 		</div>
 	</div>
 
