@@ -57,8 +57,10 @@ io.on('connection', socket => {
 	socket.on('change-username', (userInfo) => {
 		for (var key in users) {
 			var user = users[key];
+			console.log('socketid:', user.socket.id,  socket.id);
 			if (user.username == userInfo.username) {
 				if (user.userId != userInfo.userId) {
+					console.log('same username:', user.userId, userInfo.userId);
 					same_username = true;
 				}
 			}
@@ -66,8 +68,8 @@ io.on('connection', socket => {
 			if (user.userId == userInfo.userId) {
 				console.log('change username:', user.userId, userInfo.username);
 				console.log('change username, socketId', socket.id);
-				user.username = userInfo.username;
-				user.socket.emit('change-username-result', userInfo);
+				users[key].username = userInfo.username;
+				users[key].socket.emit('change-username-result', userInfo);
 			}
 		}
 	});
