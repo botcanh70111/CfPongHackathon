@@ -13,7 +13,7 @@ body {
 	font-family: 'Roboto',sans-serif;
     font-size: 13px;
     letter-spacing: 0.25px;
-    color: #333;
+    color: #3C415C;
     padding: 0;
     margin: 0;
     background-color: #F6F6F6;
@@ -31,6 +31,8 @@ body {
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
+	background: #eee url(../images/bg.png) no-repeat top center;
+    background-size: cover;
 }
 
 h1 {
@@ -57,6 +59,8 @@ body .content-wrapper {
     -ms-flex-align: stretch;
     align-items: stretch;
     margin-top: 30px;
+	border-color: #4A1C25;
+    border: 5px solid;
 }
 
 body .main {
@@ -71,13 +75,14 @@ body .main {
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
+	background-color: #f5ede0;
 }
 
 body .figure {
     max-width: 490px;
     -ms-flex-preferred-size: 44.5454%;
     flex-basis: 44.5454%;
-    background: #eee url(../images/awesome_team.jpg) no-repeat top center;
+    background: #eee url(../images/bg-right.jpg) no-repeat top left;
     background-size: cover;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -170,23 +175,27 @@ body .main .form-container .form-group {
     text-transform: uppercase;
     letter-spacing: 0.51px;
     font-weight: 700;
-    font-size: 12px;
+    font-size: 14px;
     display: block;
+    color: #3C415C;
 }
 
 .form-group input[type=email], .form-group input[type=password], .form-group input[type=text] {
     border: 0;
-    padding: 3px 5px 10px 12px;
+    padding: 3px 5px 5px 12px;
     width: 100%;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    background-color: transparent;
     font-size: 14px;
     border-radius: 0;
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
 	border: 1px solid #CDCDCD;
+	background: #94633A;
+    border-radius: 8px;
+    color: #fff;
+    text-transform: capitalize;
 }
 
 .form-group:after {
@@ -213,10 +222,15 @@ body .main .form-container .form-group {
 	margin-top: 10px;
 }
 
+.mb-10 {
+	margin-bottom: 10px;
+}
+
 .bottom-action {
 	display: flex;
 	justify-content: space-between;
 	padding: 0 50px 30px 50px;
+	align-items: center;
 }
 .btn {
     text-transform: uppercase;
@@ -249,13 +263,16 @@ body .main .form-container .form-group {
 }
 
 .btn.btn-primary {
-    background-color: #489FFF;
-    border-color: #489FFF;
-    color: #fff;
+	background: #71C638;
+	color: #fff;
+	border: 2px solid #263F2A;
+	box-sizing: border-box;
+	box-shadow: inset 0px 4px 0px #B5FF84, inset 0px -4px 0px #46881B;
+	border-radius: 8px;
 }
 
 .btn.btn-primary:hover {
-    background-color: #2E92FF;
+    background-color: #529922;
 }
 
 .btn.btn-default {

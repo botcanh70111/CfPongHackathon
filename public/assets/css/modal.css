@@ -4,92 +4,92 @@
  * @format
  */
 
- .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    transform: translate(-50%,-50%);
-    left: 50%;
-    top: 50%;
-    width: 500px; /* Full width */
-    /* height: 150px; */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: white;
-    color: black;
-    border-radius: 4px;
-    flex-flow: column nowrap;
-  }
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  transform: translate(-50%,-50%);
+  left: 50%;
+  top: 50%;
+  width: 500px;
+  overflow: auto;
+  background-color: white;
+  color: black;
+  border-radius: 4px;
+  flex-flow: column nowrap;
+  border-color: #4A1C25;
+  border: 2px solid;
+}
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: black;
+  opacity: 0.7;
   
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    background-color: black;
-    opacity: 0.7;
-  }
-  
-  .modal-header {
-    position: relative;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    height: 30px;
-    font-size: 20px;
-    padding: 20px;
-    font-weight: 700;
-    z-index: 1000;
-  }
-  .header-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
-    cursor: pointer;
-  }
-  
-  /* Modal Content */
-  .modal-content {
-    padding: 20px;
-    z-index: 100;
-  }
-  
-  /* The Close Button */
-  .close {
-    color: black;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
-  .modal-bottom {
-    padding: 20px;
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .ok-btn {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: center;
-    background-color: #489fff;
-    padding: 6px 20px;
-    border-radius: 4px;
-    font-weight: 700;
-    color: white;
-    cursor: pointer;
-  }
-  .ok-btn:hover {
-    background-color: #1a88ff;
-  }
+}
+
+.modal-header {
+  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  height: 30px;
+  font-size: 20px;
+  padding: 20px;
+  font-weight: 700;
+  z-index: 1000;
+}
+.header-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-content {
+  padding: 20px;
+  z-index: 100;
+}
+
+.close {
+  color: black;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-bottom {
+  padding: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ok-btn {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  background-color: #489fff;
+  padding: 6px 20px;
+  border-radius: 4px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+}
+.ok-btn:hover {
+  background-color: #1a88ff;
+}

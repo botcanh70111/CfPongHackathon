@@ -21,11 +21,8 @@
 						<div class="form-group">
 							<label for="username">Tìm kiếm người chơi</label>
 							<div class="search-online">
-								<!-- <div class="search-container"> -->
 								<input id="input-search-user" class="input-username" type="text" name="username" value="" />
-								<!-- </div> -->
 								<button type="button" class="btn btn-primary" onclick="searchUserOnline();">Tìm kiếm</button>
-								<!-- <button onclick="searchUserOnline();">Search</button> -->
 							</div>
 						</div>
 
@@ -37,8 +34,6 @@
 								<input id="input-username" class="input-username" type="text" name="start-game" value="" />
 								<button type="button" class="btn btn-primary mr-10" onclick="createRoom();">Tạo room</button>
 								<button type="button" class="btn btn-primary" onclick="setUsername();">Bắt đầu ngay</button>
-								<!-- <button onclick="createRoom();">Create Room</button>
-								<button onclick="setUsername();">Start Online</button> -->
 							</div>
 						</div>
 						<div class="form-group">
@@ -46,19 +41,14 @@
 							<div class="search-online">
 								<input id="input-room" class="input-username" type="text" name="start-game" value="" />
 								<button type="button" class="btn btn-primary" onclick="joinRoom();">Vào room</button>
-								<!-- <button onclick="joinRoom();">Join Room</button> -->
 							</div>
 						</div>
-
-						<!-- <input class="menu-button" id="roomId" style="display: none;" type="button" />
-						<input class="menu-button" id="singleplayer" onclick="singlePlayer();" type="submit" value="Play with computer" />
-						<input class="menu-button" id="twoplayers" onclick="oneVerseOne();" type="submit" value="Two Players offline" /> -->
-						
+		
 						<br />
 
 						<input class="menu-button" id="roomId" style="display: none;" type="button" />
-						<button type="submit" class="btn btn-default" onclick="singlePlayer();">Chơi với máy</button>
-						<button type="submit" class="btn btn-default" onclick="oneVerseOne();">Đối kháng</button>
+						<button type="submit" class="btn btn-primary" onclick="singlePlayer();">Chơi với máy</button>
+						<button type="submit" class="btn btn-primary" onclick="oneVerseOne();">Đối kháng</button>
 		
 					</div>
 					<div id="match-making" style="display: none;">
@@ -70,9 +60,9 @@
 
 					<div class="bottom-action">
 						<div id="game-history">
-							<p>Game history</p>
+							<p class="mb-10">Game history</p>
 							<!-- Trigger/Open The Modal -->
-							<button id="myBtn" onclick="openModal(1);" class="mt-10">Open Modal</button>
+							<button id="myBtn" class=" btn btn-primary" onclick="openModal(1);" class="mt-10">History</button>
 						</div>
 						<h2 id="online-players">Online: 0</h2>
 					</div>
@@ -98,7 +88,7 @@
 			<p>Some text in the Modal..</p>
 		</div>
 		<div class="modal-bottom">
-			<div class="ok-btn" onclick="closeModal();">OK</div>
+			<div class="ok-btn btn btn-primary" onclick="closeModal();">OK</div>
 		</div>
 	</div>
 
