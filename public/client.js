@@ -1,6 +1,12 @@
+const uuid = () => {
+	return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+	  (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+	);
+}
+
 var host = window.location.href;
 console.log(host);
-var socket = io.connect('localhost');
+var socket = io.connect('http://18.139.89.76');
 
 let game_state;
 
@@ -14,13 +20,21 @@ let interval = setInterval(() => {
 }, 500);
 
 window.onload = function (e) {
+	let userId = localStorage.getItem('user_id');
+	if (!userId) {
+		localStorage.setItem('user_id', uuid());
+		userId = localStorage.getItem('user_id');
+	}
+
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
 		document.getElementById('twoplayers').style.display = 'none';
 	}
+
 	let savedUserName = localStorage.getItem('user_name');
 	if (savedUserName) {
 		document.getElementById('input-username').value = savedUserName;
 		socket.emit('get-game-history', savedUserName);
+		socket.emit('change-username', {userId: userId, username: savedUserName});
 	}
 };
 
@@ -45,6 +59,17 @@ function playSound(soundUrl) {
 //Gets number of online players
 socket.on('player-broadcast', players => {
 	document.getElementById('online-players').innerHTML = `Users online: ${players}`;
+});
+
+//Gets number of online players
+socket.on('new-connection-client', () => {
+	let userId = localStorage.getItem('user_id');
+	if (!userId) {
+		localStorage.setItem('user_id', uuid());
+		userId = localStorage.getItem('user_id');
+	}
+
+	socket.emit("set-user-id", userId);
 });
 
 //Game has begun
@@ -106,10 +131,16 @@ function fit_canvas() {
 }
 
 //Sends username to server
-function setUsername() {
+function playOnline() {
+	let savedUserName = localStorage.getItem('user_name');
+	if (!savedUserName) {
+		localStorage.setItem('user_name', document.getElementById('input-username').value);
+		savedUserName = localStorage.getItem('user_name');
+	}
+
 	socket.emit(
-		'set-username',
-		document.getElementById('input-username').value,
+		'play-online',
+		savedUserName,
 		callback => {
 			if (callback) {
 				document.getElementById('start-screen').remove();
@@ -117,9 +148,29 @@ function setUsername() {
 			}
 		}
 	);
-	localStorage.setItem('user_name', document.getElementById('input-username').value);
 }
 
+//Sends username to server
+function changeUsername() {
+	let userId = localStorage.getItem('user_id');
+	if (!userId) {
+		localStorage.setItem('user_id', uuid());
+		userId = localStorage.getItem('user_id');
+	}
+
+	socket.emit(
+		'change-username',
+		{userId: userId, username: document.getElementById('input-username').value},
+		callback => {
+			if (callback) {
+				document.getElementById('start-screen').remove();
+				console.log('username changed successfully');
+			}
+		}
+	);
+
+	localStorage.setItem('user_name', document.getElementById('input-username').value);
+}
 
 // create room
 function createRoom() {
@@ -142,7 +193,7 @@ function joinRoom() {
 		'join-room',
 		{
 			roomId: document.getElementById('input-room').value,
-			userName: document.getElementById('input-username').value
+			username: document.getElementById('input-username').value
 		},
 		callback => {
 			console.log(callback);
@@ -254,14 +305,6 @@ function copyRoomIdToClipboard() {
 	alert("Room Id is copied");
 }
 
-function quickGame() {
-
-}
-
-function history() {
-	
-}
-
 //Handles opponent leaving game
 socket.on('player-left', () => {
 	socket.disconnect();
@@ -336,4 +379,10 @@ socket.on('game-history-changed', data => {
 			historyEl.innerHTML += `<p>${new Date(history.created_date).toString()} | ${history.player1} vs ${history.player2} (${history.player1_score}-${history.player2_score})</p>`
 		});
 	}
+});
+
+socket.on('change-username-result', userInfo => {
+	console.log(userInfo);
+	localStorage.setItem("user_name", userInfo.username);
+	document.getElementById('input-username').value = userInfo.username;
 });
