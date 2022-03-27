@@ -370,3 +370,9 @@ body .main .form-container .form-group {
     cursor: pointer;
     color: #489FFF;
 }
+
+@media screen and (max-width: 768px) {
+    body .figure {
+        display: none;
+    }
+  }
