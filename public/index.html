@@ -33,7 +33,7 @@
 							<div class="search-online">
 								<input id="input-username" class="input-username" type="text" name="start-game" value="" />
 								<button type="button" class="btn btn-primary mr-10" onclick="createRoom();">Tạo room</button>
-								<button type="button" class="btn btn-primary" onclick="setUsername();">Bắt đầu ngay</button>
+								<button type="button" class="btn btn-primary" onclick="quickGame();">Quick Game</button>
 							</div>
 							<div id="room_info" style="display: none;">
 								<span>Room ID: </span>
@@ -53,7 +53,6 @@
 						<br />
 
 						<input class="menu-button" id="roomId" style="display: none;" type="button" />
-						<input class="menu-button" id="quick_game" onclick="quickGame();" type="submit" value="Quick Game" />
 						<button type="submit" id="singleplayer" class="btn btn-primary" onclick="singlePlayer();">Chơi với máy</button>
 						<button type="submit" id="twoplayers" class="btn btn-primary" onclick="oneVerseOne();">Đối kháng</button>
 		
@@ -67,7 +66,6 @@
 
 					<div class="bottom-action">
 						<div id="game-history">
-							<p class="mb-10">Game history</p>
 							<!-- Trigger/Open The Modal -->
 							<button id="myBtn" class=" btn btn-primary" onclick="history();" class="mt-10">History</button>
 						</div>
@@ -83,11 +81,6 @@
 	</div>
 	<div id="gameplay" style="display: none;" onresize="fit_canvas();">
 		<canvas id="drawing-canvas" width="600" height="500"></canvas>
-	</div>
-	<div id="game-history">
-		<p>Game history</p>
-		</div>
-		<div class="figure"></div>
 	</div>
 	
 
