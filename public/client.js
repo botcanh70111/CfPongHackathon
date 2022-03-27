@@ -7,6 +7,7 @@ const uuid = () => {
 var host = window.location.href;
 console.log(host);
 var socket = io.connect('http://18.139.89.76');
+// var socket = io.connect('localhost:8888');
 
 let game_state;
 
@@ -110,8 +111,9 @@ socket.on('game-data', (data, callback) => {
 		}
 		setTimeout(() => {
 			document.getElementById('gameplay').style.display = 'none';
-			alert(`Player ${data.winner} win!`);
-			location.reload();
+			// alert(`Player ${data.winner} win!`);
+			openModal(ENUM_MODAL_TYPE.win, data.winner);
+			// location.reload();
 		}, 1000);
 	}
 });
@@ -353,16 +355,19 @@ document.getElementById('input-search-user').addEventListener('change', (data) =
 });
 
 
-socket.on('search-users-result', result => {
-	let items = "";
+socket.on('search-users-result', (result = []) => {
+	console.log("TVT result = " + JSON.stringify(result));
+	openModal(ENUM_MODAL_TYPE.selectUser, '', result);
+	// if(!!result.length)
+	// let items = "";
 	
-	if (result && result.length > 0) {
-		result.forEach((e) => {
-			if (e.playing != true) {
-				// to do
-			}
-		})
-	}
+	// if (result && result.length > 0) {
+	// 	result.forEach((e) => {
+	// 		if (e.playing != true) {
+	// 			// to do
+	// 		}
+	// 	})
+	// }
 })
 
 socket.on('create-room-result', roomId => {
@@ -375,12 +380,12 @@ socket.on('game-history-changed', data => {
 	console.log('game histories', data);
 	if (data && data.length > 0) {
 		// const historyEl = document.getElementById('game-history');
-		// let historyArr = [];
-		// data.sort(function (a, b) { return b.created_date - a.created_date }).forEach(history => {
-		// 	const value = `${new Date(history.created_date).toString()} | ${history.player1} vs ${history.player2} (${history.player1_score}-${history.player2_score})`;
-		// 	historyEl.innerHTML += `<p>${new Date(history.created_date).toString()} | ${history.player1} vs ${history.player2} (${history.player1_score}-${history.player2_score})</p>`;
-		// 	historyArr = [...historyArr, value];
-		// });
+		let historyArr = [];
+		data.sort(function (a, b) { return b.created_date - a.created_date }).forEach(history => {
+			const value = `${new Date(history.created_date).toString()} | ${history.player1} vs ${history.player2} (${history.player1_score}-${history.player2_score})`;
+			// historyEl.innerHTML += `<p>${new Date(history.created_date).toString()} | ${history.player1} vs ${history.player2} (${history.player1_score}-${history.player2_score})</p>`;
+			historyArr = [...historyArr, value];
+		});
 		localStorage.setItem('history_data', JSON.stringify(historyArr));
 	}
 });
