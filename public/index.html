@@ -40,8 +40,8 @@
 							<label for="username">Enter your name: </label>
 							<div class="search-online">
 								<input id="input-username" class="input-username" type="text" name="start-game" value="" onchange="changeUsername();" />
-								<button type="button" class="btn btn-primary mr-10" onclick="createRoom();">Create room</button>
-								<button type="button" class="btn btn-primary" onclick="playOnline();">Quick Game</button>
+								<button type="button" class="btn btn-primary mr-10 hideFunc" onclick="createRoom();">Create room</button>
+								<button type="button" class="btn btn-primary hideFunc" onclick="playOnline();">Quick Game</button>
 							</div>
 							<div id="room_info" style="display: none;">
 								<span>Room ID: </span>
@@ -50,7 +50,7 @@
 								<a id="room_id_copy" onclick="copyRoomIdToClipboard()">(Copy to clipboard)</a>
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group hideFunc">
 							<label for="username">Find user</label>
 							<div class="search-online">
 								<input id="input-search-user" class="input-username" type="text" name="username" value="" />
@@ -60,7 +60,7 @@
 
 						<div id="userslisting" class="users-listing hide"></div>
 
-						<div class="form-group">
+						<div class="form-group hideFunc">
 							<label for="username">Enter room Id</label>
 							<div class="search-online">
 								<input id="input-room" class="input-username" type="text" name="start-game" value="" />
@@ -118,19 +118,19 @@
 	</div>
 
 	<script>
-		document.onkeydown = function(evt) {
-				console.log("TVT go to document.onkeydown")
-				evt = evt || window.event;
-				var isEscape = false;
-				if ("key" in evt) {
-						isEscape = (evt.key === "Escape" || evt.key === "Esc");
-				} else {
-						isEscape = (evt.keyCode === 27);
-				}
-				if (isEscape) {
-					closeModal();
-				}
-		};
+		// document.onkeydown = function(evt) {
+		// 		console.log("TVT go to document.onkeydown")
+		// 		evt = evt || window.event;
+		// 		var isEscape = false;
+		// 		if ("key" in evt) {
+		// 				isEscape = (evt.key === "Escape" || evt.key === "Esc");
+		// 		} else {
+		// 				isEscape = (evt.keyCode === 27);
+		// 		}
+		// 		if (isEscape) {
+		// 			closeModal();
+		// 		}
+		// };
 	</script>
 
 </body>

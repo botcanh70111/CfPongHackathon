@@ -316,6 +316,7 @@ body .main .form-container .form-group {
 	padding: 10px 15px;
 	border-radius: 4px;
 	margin-right: 10px;
+    height: 37px;
 }
 
 .search-container {
@@ -369,4 +370,8 @@ body .main .form-container .form-group {
     padding-top: 10px;
     cursor: pointer;
     color: #489FFF;
+}
+
+.hideFunc {
+    display: none;
 }

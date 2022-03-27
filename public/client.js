@@ -6,7 +6,7 @@ const uuid = () => {
 
 var host = window.location.href;
 console.log(host);
-var socket = io.connect('http://18.139.89.76');
+var socket = io.connect('localhost:8888');
 
 let game_state;
 
@@ -36,7 +36,29 @@ window.onload = function (e) {
 		socket.emit('get-game-history', savedUserName);
 		socket.emit('change-username', {userId: userId, username: savedUserName});
 	}
+	let inputUserName = document.getElementById('input-username');
+	if(!inputUserName.value.trim().length) {
+		showHideStartGame(false);
+	} else {
+		showHideStartGame(true);
+	}
+	if(inputUserName) {
+		inputUserName.oninput = function() {
+			if(!inputUserName.value.trim().length) {
+				showHideStartGame(false);
+			} else {
+				showHideStartGame(true);
+			}
+		  };
+	}
 };
+
+function showHideStartGame(showElements) {
+	var hideElements = document.getElementsByClassName('hideFunc');
+	for (let i = 0; i < hideElements.length; i++) {
+		hideElements[i].style.display = showElements ?  "block" : "none";
+	}
+}
 
 //Control Ping
 let ping_interval = setInterval(() => {
@@ -157,10 +179,9 @@ function changeUsername() {
 		localStorage.setItem('user_id', uuid());
 		userId = localStorage.getItem('user_id');
 	}
-
 	socket.emit(
 		'change-username',
-		{userId: userId, username: document.getElementById('input-username').value},
+		{userId: userId, username: userName},
 		callback => {
 			if (callback) {
 				document.getElementById('start-screen').remove();
@@ -300,9 +321,34 @@ function oneVerseOne() {
 
 function copyRoomIdToClipboard() {
 	const roomId = document.getElementById('room_id').textContent;
-	console.log('copyRoomIdToClipboard: ', roomId);
-	navigator.clipboard.writeText(roomId);
-	alert("Room Id is copied");
+	copyToClipboard(roomId)
+    .then(() => alert("Room Id is copied"))
+    .catch(() => alert("Room Id is not copied"));
+}
+
+// return a promise
+function copyToClipboard(textToCopy) {
+    // navigator clipboard api needs a secure context (https)
+    if (navigator.clipboard && window.isSecureContext) {
+        // navigator clipboard api method'
+        return navigator.clipboard.writeText(textToCopy);
+    } else {
+        // text area method
+        let textArea = document.createElement("textarea");
+        textArea.value = textToCopy;
+        // make the textarea out of viewport
+        textArea.style.position = "fixed";
+        textArea.style.left = "-999999px";
+        textArea.style.top = "-999999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        return new Promise((res, rej) => {
+            // here the magic happens
+            document.execCommand('copy') ? res() : rej();
+            textArea.remove();
+        });
+    }
 }
 
 //Handles opponent leaving game
