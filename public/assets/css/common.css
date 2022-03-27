@@ -80,8 +80,8 @@ body .main {
 
 body .figure {
     max-width: 490px;
-    -ms-flex-preferred-size: 44.5454%;
-    flex-basis: 44.5454%;
+    -ms-flex-preferred-size: 65%;
+    flex-basis: 65%;
     background: #eee url(../images/bg-right.jpg) no-repeat top left;
     background-size: cover;
     border-top-right-radius: 10px;
