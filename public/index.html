@@ -3,65 +3,105 @@
 
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=0" />
+	<title>Creative Force :: Scarlet witch</title>
 	<link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css" />
-	<link rel="stylesheet" type="text/css" href="style.css" />
-	<link rel="stylesheet" type="text/css" href="app.css" />
+	<link rel="stylesheet" type="text/css" href="./assets/css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="./assets/css/common.css" />
+	<link rel="stylesheet" type="text/css" href="./assets/css/modal.css" />
+	<link rel="apple-touch-icon" sizes="57x57" href="./assets/favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="./assets/favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="./assets/favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="./assets/favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="./assets/favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="./assets/favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="./assets/favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="./assets/favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="./assets/favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="./assets/favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
+	<link rel="manifest" href="./assets/favicon/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="./assets/favicon/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
 </head>
 
-<body>
-	<h1>SCARLET WITCH</h1>
-	<h2 id="online-players">Online: 0</h2>
-	<div id="start-screen">
-		<div class="search-online" style="display: none;">
-			<input id="input-search-user" class="input-username" type="text" name="username" value="" placeholder="Search username"/>
-			<button onclick="searchUserOnline();">Search</button>
-		</div>
-		<div class="search-online">
-			<input id="input-username" class="input-username" type="text" name="start-game" value="" placeholder="Enter your name ..."/>
-			<button onclick="createRoom();">Create Room</button>
-		</div>
-		<div id="room_info" style="display: none;">
-			<span>Room ID: </span>
-			<span id="room_id"></span>
-			<br/>
-			<span id="room_id_copy" onclick="copyRoomIdToClipboard()">(Copy to clipboard)</span>
-		</div>
+<body class="scarlet-witch">
+	<div class="content-wrapper">
+		<div class="main">
+			<div class="logo">
+				<img alt="Creative Force :: Scarlet witch" src="./assets/images/app-logo.png" width="251" height="88">
+			</div>
+			<div class="form-container">
+				<div class="form-inner">
+					<div id="start-screen">
+						<div class="form-group">
+							<label for="username">Enter your name: </label>
+							<div class="search-online">
+								<input id="input-username" class="input-username" type="text" name="start-game" value="" onchange="changeUsername();" />
+								<button type="button" class="btn btn-primary mr-10" onclick="createRoom();">Create room</button>
+								<button type="button" class="btn btn-primary" onclick="playOnline();">Quick Game</button>
+							</div>
+							<div id="room_info" style="display: none;">
+								<span>Room ID: </span>
+								<span id="room_id"></span>
+								<br/>
+								<a id="room_id_copy" onclick="copyRoomIdToClipboard()">(Copy to clipboard)</a>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="username">Find user</label>
+							<div class="search-online">
+								<input id="input-search-user" class="input-username" type="text" name="username" value="" />
+								<button type="button" class="btn btn-primary" onclick="searchUserOnline();">Search</button>
+							</div>
+						</div>
+
+						<div id="userslisting" class="users-listing hide"></div>
+
+						<div class="form-group">
+							<label for="username">Enter room Id</label>
+							<div class="search-online">
+								<input id="input-room" class="input-username" type="text" name="start-game" value="" />
+								<button type="button" class="btn btn-primary" onclick="joinRoom();">Join room</button>
+							</div>
+						</div>
 		
-		<div class="search-online ">
-			<div class="search-container">
-				<input id="input-search-user" class="input-username" type="text" name="username" value="" placeholder="Search username"/>
-				<div id="userslisting" class="users-listing hide">
+						<br />
+
+						<input class="menu-button" id="roomId" style="display: none;" type="button" />
+						<button type="submit" id="singleplayer" class="btn btn-primary" onclick="singlePlayer();">Play with computer</button>
+						<button type="submit" id="twoplayers" class="btn btn-primary" onclick="oneVerseOne();">Battle</button>
+		
+					</div>
+					<div id="match-making" style="display: none;">
+						<h3 id="searching-for-match">Game is started. Please wait for other player...</h3>
+					</div>
+					<div id="gameplay" style="display: none;" onresize="fit_canvas();">
+						<canvas id="drawing-canvas" width="600" height="500"></canvas>
+					</div>
+
+					<div class="bottom-action">
+						<div id="game-history">
+							<!-- Trigger/Open The Modal -->
+							<button id="myBtn" class=" btn btn-primary" onclick="history();" class="mt-10">History</button>
+						</div>
+						<h2 id="online-players">Online: 0</h2>
+					</div>
 				</div>
 			</div>
-			<button onclick="searchUserOnline();">Search</button>
 		</div>
-		<div class="search-online">
-			<input id="input-room" class="input-username" type="text" name="start-game" value="" placeholder="Enter room id ..."/>
-			<button onclick="joinRoom();">Join Room</button>
-		</div>
-		<input class="menu-button" id="roomId" style="display: none;" type="button" />
-		<input class="menu-button" id="quick_game" onclick="quickGame();" type="submit" value="Quick Game" />
-		<input class="menu-button" id="singleplayer" onclick="singlePlayer();" type="submit" value="Play with computer" />
-		<input class="menu-button" id="twoplayers" onclick="oneVerseOne();" type="submit" value="Two Players offline" />
-		<input class="menu-button" id="history" onclick="history();" type="submit" value="History" />
-
-	</div>
-	<div id="match-making" style="display: none;">
-		<h3 id="searching-for-match">Game is started. Please wait for other player...</h3>
+		<div class="figure"></div>
 	</div>
 	<div id="gameplay" style="display: none;" onresize="fit_canvas();">
 		<canvas id="drawing-canvas" width="600" height="500"></canvas>
 	</div>
-	<div id="game-history">
-		<p>Game history</p>
-	</div>
+	
 
 	
 	<!-- Modal Overlay -->
 	<div id="modal-overlay" class="modal-overlay"></div>
-
-	<!-- Trigger/Open The Modal -->
-	<button id="myBtn" onclick="openModal(1);">Open Modal</button>
 
 	<!-- The Alert Modal -->
 	<div id="myModal" class="modal">
@@ -73,7 +113,7 @@
 			<p>Some text in the Modal..</p>
 		</div>
 		<div class="modal-bottom">
-			<div class="ok-btn" onclick="closeModal();">OK</div>
+			<div class="ok-btn btn btn-primary" onclick="closeModal();">OK</div>
 		</div>
 	</div>
 

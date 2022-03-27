@@ -21,6 +21,7 @@ class User {
 	constructor(socket) {
 		this.socket = socket;
 		this.username = socket.id;
+		this.userId = "";
 		this.game = { id: null, playing: false };
 	}
 }
@@ -34,36 +35,40 @@ let games = {};
 //Manages sockets
 io.on('connection', socket => {
 	console.log(`New client connected: ${socket.id}`);
+
 	users[socket.id] = new User(socket);
+
 	socket.broadcast.emit('player-broadcast', Object.keys(users).length);
 	socket.emit('player-broadcast', Object.keys(users).length);
+	users[socket.id].socket.emit('new-connection-client');
+
+	socket.on('set-user-id', (userId) => {
+		users[socket.id].userId = userId;
+	});
+
 	//Checks for duplicate usernames
-	socket.on('set-username', (username, callback) => {
-		let same_username = false;
-		// console.log(uNRegex.test(username));
-		// if (!uNRegex.test(username)) {
-		// 	callback(false);
-		// 	same_username = true;
-		// }
-		for (var key in users) {
-			var user = users[key];
-			if (user.username == username) {
-				callback(false);
-				same_username = true;
-			}
-		}
-		if (!same_username && users[socket.id].username == socket.id) {
-			console.log(
-				`${users[socket.id].username} set their username to ${username}`
-			);
-			users[socket.id].username = username;
-			callback(true);
+	socket.on('play-online', (username, callback) => {
+		console.log(`username start new game online: ${username}`);
+		callback(true);
 			socket.emit('matchmaking-begin');
 			matchMaker(socket.id);
-		} else {
-			console.log(
-				`${users[socket.id].username} tried to set their username to ${username}, however username is in use or invalid.`
-			);
+	});
+
+	socket.on('change-username', (userInfo) => {
+		for (var key in users) {
+			var user = users[key];
+			if (user.username == userInfo.username) {
+				if (user.userId != userInfo.userId) {
+					same_username = true;
+				}
+			}
+
+			if (user.userId == userInfo.userId) {
+				console.log('change username:', user.userId, userInfo.username);
+				console.log('change username, socketId', socket.id);
+				user.username = userInfo.username;
+				user.socket.emit('change-username-result', userInfo);
+			}
 		}
 	});
 
@@ -84,14 +89,14 @@ io.on('connection', socket => {
 		console.log('search-users', data, users, result);
 	});
 
-	socket.on('create-room', (userName, callback) => {
-		users[socket.id].username = userName;
+	socket.on('create-room', (username, callback) => {
+		users[socket.id].username = username;
 		let roomId = createRoom(socket);
 		callback(true);
 		console.log(roomId);
 		socket.emit('create-room-result', roomId);
 		console.log('t2')
-		socket.emit('game-history-changed', getUserGameHistory(userName));
+		socket.emit('game-history-changed', getUserGameHistory(username));
 	});
 
 	socket.on('join-room', (player2) => {
@@ -175,12 +180,10 @@ function createRoom(socket) {
 }
 
 function joinRoom(player2, socketPlayer2) {
-	users[socketPlayer2.id].username = player2.userName;
+	users[socketPlayer2.id].username = player2.username;
 	let user1Key = privateRooms[player2.roomId];
 	let user2 = users[socketPlayer2.id];
 	let user1 = users[user1Key];
-
-	console.log(user1Key);
 
 	var game = new Game(
 		user1Key,
@@ -212,6 +215,11 @@ function joinRoom(player2, socketPlayer2) {
 	users[game.player2].socket.emit('game-history-changed', getUserGameHistory(users[user1Key].username))
 	users[game.player2].socket.emit('game-history-changed', getUserGameHistory(users[socketPlayer2.id].username))
 }
+
+function startGame(username1, username2) {
+
+}
+
 //Sends new game data to each of the respective players in each game, every x milliseconds
 setInterval(() => {
 	for (key in games) {
