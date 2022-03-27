@@ -5,18 +5,20 @@
  */
 
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: calc(50% - 200px);
-  top: 100px;
-  width: 400px; /* Full width */
-  /* height: 150px; */
-  overflow: auto; /* Enable scroll if needed */
+  display: none;
+  position: fixed;
+  z-index: 1;
+  transform: translate(-50%,-50%);
+  left: 50%;
+  top: 50%;
+  width: 500px;
+  overflow: auto;
   background-color: white;
   color: black;
   border-radius: 4px;
   flex-flow: column nowrap;
+  border-color: #4A1C25;
+  border: 2px solid;
 }
 
 .modal-overlay {
@@ -29,6 +31,7 @@
   z-index: 0;
   background-color: black;
   opacity: 0.7;
+  
 }
 
 .modal-header {
@@ -50,13 +53,11 @@
   cursor: pointer;
 }
 
-/* Modal Content */
 .modal-content {
   padding: 20px;
   z-index: 100;
 }
 
-/* The Close Button */
 .close {
   color: black;
   float: right;
