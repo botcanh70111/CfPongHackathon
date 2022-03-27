@@ -391,6 +391,11 @@ socket.on('change-username-result', userInfo => {
 	document.getElementById('input-username').value = userInfo.username;
 });
 
+
 function showHistoryPopup() {
 	openModal(4);
 }
+
+socket.on('user-playing', () => {
+	location.reload();
+})
