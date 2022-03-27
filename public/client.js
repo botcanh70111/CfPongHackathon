@@ -187,7 +187,7 @@ function changeUsername() {
 	}
 	socket.emit(
 		'change-username',
-		{userId: userId, username: userName},
+		{userId: userId, username: document.getElementById('input-username').value},
 		callback => {
 			if (callback) {
 				document.getElementById('start-screen').remove();
