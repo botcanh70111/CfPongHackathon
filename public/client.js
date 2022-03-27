@@ -297,19 +297,9 @@ socket.on('search-users-result', result => {
 	if (result && result.length > 0) {
 		result.forEach((e) => {
 			if (e.playing != true) {
-				items += `<li value="${e.id}">${e.username}</li>`;
+				// to do
 			}
 		})
-	}
-
-	if (items != "") {
-		let template = `<ul>${items}</ul>`;
-		document.getElementById("userslisting").innerHTML = template;
-		document.getElementById("userslisting").classList.remove("hidden");
-	}
-	else {
-		document.getElementById("userslisting").innerHTML = "";
-		document.getElementById("userslisting").classList.add("hidden");
 	}
 })
 
