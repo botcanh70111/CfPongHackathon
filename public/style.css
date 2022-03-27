@@ -6,6 +6,9 @@ body {
 	font-family: 'Courier New', Courier, monospace;
 	touch-action: none;
 	width: 100%;
+	background-image: url('./assets//main_bg.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 h1 {
@@ -13,6 +16,7 @@ h1 {
 	height: 10vh;
 	font-size: 50px;
 	text-align: center;
+	margin-top: 10px;
 }
 
 #online-players {
@@ -59,7 +63,7 @@ h2 {
 	border-radius: 20px;
 	background-color: rgb(255, 255, 255);
 	color: rgb(75, 74, 74);
-	border: 3px solid white;
+	border: 3px solid rgb(2, 173, 25);
 	transition-duration: 0.3s;
 }
 
@@ -106,7 +110,7 @@ h2 {
 	margin-top: 10px;
 }
 .search-online button {
-	border: 1px solid rgb(52, 92, 202);
+	border: 1px solid rgb(255, 255, 255);
 	padding: 5px;
 	font-size: 16px;
 	font-weight: 600;
@@ -125,10 +129,10 @@ h2 {
 	color: rgb(0, 0, 0);
 	text-align: center;
 	font-size: 32px;
-	width: 400px;
 	padding: 10px 15px;
-	border-radius: 4px;
+	border-radius: 10px;
 	margin-right: 10px;
+	text-align: left;
 }
 
 .search-container {
