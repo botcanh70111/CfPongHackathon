@@ -362,3 +362,17 @@ body .main .form-container .form-group {
 .users-listing.hidden {
 	display: none;
 }
+
+#room_info {
+    margin-top: 10px;
+    padding: 5px;
+    font-size: 16px;
+    color: black;
+    font-style: italic;
+}
+
+#room_id_copy {
+    padding-top: 10px;
+    cursor: pointer;
+    color: #489FFF;
+}
