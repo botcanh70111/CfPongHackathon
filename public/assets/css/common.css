@@ -372,7 +372,7 @@ body .main .form-container .form-group {
     color: #489FFF;
 }
 
-.hideFunc {
+.hide-form {
     display: none;
 }
 @media screen and (max-width: 768px) {

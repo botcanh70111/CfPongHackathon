@@ -57,7 +57,11 @@ window.onload = function (e) {
 function showHideStartGame(showElements) {
 	var hideElements = document.getElementsByClassName('hideFunc');
 	for (let i = 0; i < hideElements.length; i++) {
-		hideElements[i].style.display = showElements ?  "block" : "none";
+		if(showElements) {
+			hideElements[i].classList. remove('hide-form');
+		} else {
+			hideElements[i].classList.add('hide-form');
+		}
 	}
 }
 
