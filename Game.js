@@ -1,7 +1,7 @@
 const uuid = require('uuid');
 const MAX_SPEED = 5;
 const MIN_SPEED = 2;
-const MAX_SCORE = 2;
+const MAX_SCORE = 11;
 
 class Game {
 

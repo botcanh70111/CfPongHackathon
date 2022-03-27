@@ -50,8 +50,8 @@ io.on('connection', socket => {
 	socket.on('play-online', (username, callback) => {
 		console.log(`username start new game online: ${username}`);
 		callback(true);
-			socket.emit('matchmaking-begin');
-			matchMaker(socket.id);
+		socket.emit('matchmaking-begin');
+		matchMaker(socket.id);
 	});
 
 	socket.on('change-username', (userInfo) => {
@@ -142,7 +142,6 @@ function matchMaker(new_player) {
 		console.log("match: ", matchmaking[0], new_player);
 		let isJoined = startGame(matchmaking[0], new_player);
 		if (isJoined) {
-			console.log(`Game ${game.id} has started.`);
 			matchmaking = [];
 		}
 		else {
@@ -169,8 +168,8 @@ function joinRoom(player2, socketPlayer2) {
 function startGame(userKey1, userKey2) {
 	let user2 = users[userKey2];
 	let user1 = users[userKey1];
-
-	if (user1.userId == user2.userId || user1.game.playing || user1.game.playing) {
+	console.log(`userId1: ${user1.userId} ${user1.game.playing}, userId2: ${user2.userId} ${user2.game.playing}`);
+	if (user1.userId == user2.userId || user1.game.playing || user2.game.playing) {
 		return false;
 	}
 
