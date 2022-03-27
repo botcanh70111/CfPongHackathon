@@ -47,6 +47,15 @@ let ping_interval = setInterval(() => {
 	// });
 }, 500);
 
+var gameAudio = null;
+function playSound(soundUrl) {
+	if(gameAudio) {
+		gameAudio.stop();
+	}
+	gameAudio = new Audio(soundUrl);
+	gameAudio.play();
+}
+
 //Gets number of online players
 socket.on('player-broadcast', players => {
 	document.getElementById('online-players').innerHTML = `Users online: ${players}`;
@@ -67,7 +76,7 @@ socket.on('new-connection-client', () => {
 socket.on('game-started', data => {
 
 	//Play sound when start game
-	var audio = new Audio('./assets/start-game.mp3');
+	var audio = new Audio('./assets/raw/start_match.mp3');
 	audio.play();
 
 	clearInterval(interval);
@@ -96,9 +105,11 @@ socket.on('game-data', (data, callback) => {
 	callback(game_state.game.self.pos);
 
 	if (data.game_state == 2) {
+		if(game_state.game.self.username == data.winner) {
+			playSound('./assets/raw/winner.mp3');
+		}
 		setTimeout(() => {
 			document.getElementById('gameplay').style.display = 'none';
-
 			alert(`Player ${data.winner} win!`);
 			location.reload();
 		}, 1000);
