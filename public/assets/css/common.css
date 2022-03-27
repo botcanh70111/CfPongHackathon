@@ -225,6 +225,7 @@ body .main .form-container .form-group {
 	justify-content: space-between;
 	padding: 0 50px 30px 50px;
 	align-items: center;
+    flex-flow: wrap;
 }
 .btn {
     text-transform: uppercase;
