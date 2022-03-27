@@ -45,6 +45,7 @@ window.onload = function (e) {
 	}
 	if(inputUserName) {
 		inputUserName.oninput = function() {
+			localStorage.setItem('user_name', inputUserName.value.trim());
 			if(!inputUserName.value.trim().length) {
 				showHideStartGame(false);
 			} else {
