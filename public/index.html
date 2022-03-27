@@ -12,7 +12,7 @@
 	<h1>SCARLET WITCH</h1>
 	<h2 id="online-players">Online: 0</h2>
 	<div id="start-screen">
-		<div class="search-online ">
+		<div class="search-online" style="display: none;">
 			<input id="input-search-user" class="input-username" type="text" name="username" value="" placeholder="Search username"/>
 			<button onclick="searchUserOnline();">Search</button>
 		</div>
@@ -40,8 +40,10 @@
 			<button onclick="joinRoom();">Join Room</button>
 		</div>
 		<input class="menu-button" id="roomId" style="display: none;" type="button" />
+		<input class="menu-button" id="quick_game" onclick="quickGame();" type="submit" value="Quick Game" />
 		<input class="menu-button" id="singleplayer" onclick="singlePlayer();" type="submit" value="Play with computer" />
 		<input class="menu-button" id="twoplayers" onclick="oneVerseOne();" type="submit" value="Two Players offline" />
+		<input class="menu-button" id="history" onclick="history();" type="submit" value="History" />
 
 	</div>
 	<div id="match-making" style="display: none;">

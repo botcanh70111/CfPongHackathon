@@ -243,6 +243,14 @@ function copyRoomIdToClipboard() {
 	alert("Room Id is copied");
 }
 
+function quickGame() {
+
+}
+
+function history() {
+	
+}
+
 //Handles opponent leaving game
 socket.on('player-left', () => {
 	socket.disconnect();

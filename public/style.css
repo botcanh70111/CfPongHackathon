@@ -9,6 +9,7 @@ body {
 	background-image: url('./assets//main_bg.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
+	font-family: 'Roboto', sans-serif;
 }
 
 h1 {
@@ -48,7 +49,7 @@ h2 {
 	position: absolute;
 	text-align: center;
 	font-size: 32px;
-	top: 50%;
+	top: 40%;
 	left: 50%;
 	margin-top: -125px;
 	margin-left: -250px;
@@ -73,10 +74,11 @@ h2 {
 	padding: 10px 20px;
 	width:500px;
 	border-radius: 20px;
-	background-color: rgb(255, 255, 255);
-	color: rgb(75, 74, 74);
+	background-color: rgb(21 112 63);
+	color: white;
 	border: 3px solid rgb(2, 173, 25);
 	transition-duration: 0.3s;
+	font-weight: 700;
 }
 
 .menu-button:hover {
