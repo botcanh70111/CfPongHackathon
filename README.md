@@ -1,7 +1,9 @@
 # multiplayer-pong
 An online multiplayer pong, full-stack web application made with Node.Js
 
-Live online version can be found at: https://pstefa-pong.herokuapp.com/ (US Server)
+Excute rich features & awesome game-play!
+
+Live online version can be found at: http://18.139.89.76/ (AWS server)
 
 # Controls
 Swipe/Use finger gestures on mobile device to control paddle

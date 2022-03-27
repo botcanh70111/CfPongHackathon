@@ -37,7 +37,7 @@
 				<div class="form-inner">
 					<div id="start-screen">
 						<div class="form-group">
-							<label for="username">Enter your name: </label>
+							<label for="username">Enter your name</label>
 							<div class="search-online">
 								<input id="input-username" class="input-username" type="text" name="start-game" value="" onchange="changeUsername();" />
 								<button type="button" class="btn btn-primary mr-10" onclick="createRoom();">Create room</button>
@@ -75,7 +75,7 @@
 						<br />
 
 						<input class="menu-button" id="roomId" style="display: none;" type="button" />
-						<button type="submit" id="singleplayer" class="btn btn-primary" onclick="singlePlayer();">Play with computer</button>
+						<button type="submit" id="singleplayer" class="btn btn-primary" onclick="singlePlayer();">Training mode</button>
 						<button type="submit" id="twoplayers" class="btn btn-primary" onclick="oneVerseOne();">Battle</button>
 		
 					</div>
@@ -116,7 +116,7 @@
 			<p>Some text in the Modal..</p>
 		</div>
 		<div class="modal-bottom">
-			<div class="ok-btn btn btn-primary" onclick="closeModal();">OK</div>
+			<div class="ok-btn btn btn-primary" onclick="closeModal();location.reload()">OK</div>
 		</div>
 	</div>
 

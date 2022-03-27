@@ -5,9 +5,10 @@ const ENUM_MODAL_TYPE = {
   lose: 2,
   cancel: 3,
   history: 4,
+  selectUser: 5,
 }
 
-function openModal(modalType = ENUM_MODAL_TYPE.win, winnerName = '') {
+function openModal(modalType = ENUM_MODAL_TYPE.win, winnerName = '', userArr = []) {
   console.log("TVT modalType = " + modalType)
   let title = "";
   let content = "";
