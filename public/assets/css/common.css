@@ -375,6 +375,11 @@ body .main .form-container .form-group {
 .hide-form {
     display: none;
 }
+
+#online-players {
+    padding: 0 50px;
+}
+
 @media screen and (max-width: 768px) {
     body .figure {
         display: none;

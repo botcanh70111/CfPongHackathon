@@ -31,7 +31,7 @@
 	<div class="content-wrapper">
 		<div class="main">
 			<div class="logo">
-				<img alt="Creative Force :: Scarlet witch" src="./assets/images/app-logo.png" width="251" height="88">
+				<img alt="Creative Force :: Scarlet Pong Game" src="./assets/images/app-logo.png" width="251" height="88">
 			</div>
 			<div class="form-container">
 				<div class="form-inner">
@@ -52,33 +52,30 @@
 						</div>
 						<div class="form-group hideFunc">
 
-						<div id="userslisting" class="users-listing hide"></div>
+							<div id="userslisting" class="users-listing hide"></div>
 
-						
-						<div class="form-group">
-							<label for="username">Find user</label>
-							<div class="search-online">
-								<input id="input-search-user" class="input-username" type="text" name="username" value="" />
-								<button type="button" class="btn btn-primary" onclick="searchUserOnline();">Search</button>
+							<div class="form-group">
+								<label for="username">Find user</label>
+								<div class="search-online">
+									<input id="input-search-user" class="input-username" type="text" name="username" value="" />
+									<button type="button" class="btn btn-primary" onclick="searchUserOnline();">Search</button>
+								</div>
 							</div>
-						</div>
 
-						<div id="userslisting" class="users-listing hide"></div>
+							<div id="userslisting" class="users-listing hide"></div>
 
-						<div class="form-group hideFunc">
-							<label for="username">Enter room Id</label>
-							<div class="search-online">
-								<input id="input-room" class="input-username" type="text" name="start-game" value="" />
-								<button type="button" class="btn btn-primary" onclick="joinRoom();">Join room</button>
+							<div class="form-group hideFunc">
+								<label for="username">Enter room Id</label>
+								<div class="search-online">
+									<input id="input-room" class="input-username" type="text" name="start-game" value="" />
+									<button type="button" class="btn btn-primary" onclick="joinRoom();">Join room</button>
+								</div>
 							</div>
-						</div>
 		
-						<br />
+							<br />
 
-						<input class="menu-button" id="roomId" style="display: none;" type="button" />
-						<button type="submit" id="singleplayer" class="btn btn-primary" onclick="singlePlayer();">Training mode</button>
-						<button type="submit" id="twoplayers" class="btn btn-primary" onclick="oneVerseOne();">Battle</button>
-		
+							<input class="menu-button" id="roomId" style="display: none;" type="button" />
+						</div>
 					</div>
 					<div id="match-making" style="display: none;">
 						<h3 id="searching-for-match">Game is started. Please wait for other player...</h3>
@@ -91,8 +88,10 @@
 						<div id="game-history">
 							<button id="myBtn" class=" btn btn-primary" onclick="showHistoryPopup();" class="mt-10">History</button>
 						</div>
-						<h2 id="online-players">Online: 0</h2>
+						<button type="submit" id="singleplayer" class="btn btn-primary" onclick="singlePlayer();">Training mode</button>
+						<button type="submit" id="twoplayers" class="btn btn-primary" onclick="oneVerseOne();">Battle</button>
 					</div>
+					<h2 id="online-players">Online: 0</h2>
 				</div>
 			</div>
 		</div>
