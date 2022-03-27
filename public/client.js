@@ -190,8 +190,10 @@ function changeUsername() {
 		{userId: userId, username: document.getElementById('input-username').value},
 		callback => {
 			if (callback) {
-				document.getElementById('start-screen').remove();
-				console.log('username changed successfully');
+				console.log('username changed successfully!');
+			}
+			else {
+				console.log('username changed unsuccessfully!!!');
 			}
 		}
 	);
